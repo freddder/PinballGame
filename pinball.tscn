@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://67i4tiadlnoe"]
+
+[ext_resource type="Script" path="res://terrain.gd" id="1_kgba8"]
+[ext_resource type="PackedScene" uid="uid://eso7pe43v2o2" path="res://ball.tscn" id="2_p4xn4"]
+[ext_resource type="PackedScene" uid="uid://dy5p30hu2s8el" path="res://characters/base_character.tscn" id="3_hwm74"]
+
+[node name="Pinball" type="Node2D"]
+
+[node name="Terrain" type="StaticBody2D" parent="."]
+position = Vector2(289, 102)
+script = ExtResource("1_kgba8")
+
+[node name="Polygon2D" type="Polygon2D" parent="Terrain"]
+position = Vector2(4, 0)
+polygon = PackedVector2Array(4, 311, 4, 583, 701, 583, 701, 423, 303, 423)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain"]
+
+[node name="Ball" parent="." instance=ExtResource("2_p4xn4")]
+position = Vector2(688, 121)
+
+[node name="BaseCharacter" parent="." instance=ExtResource("3_hwm74")]
+position = Vector2(615, 353)
