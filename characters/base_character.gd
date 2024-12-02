@@ -11,8 +11,11 @@ func _physics_process(delta):
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	
+	if Input.is_action_just_pressed("attack") and is_on_floor():
+		hit_balls()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -21,5 +24,12 @@ func _physics_process(delta):
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
 	move_and_slide()
+
+func hit_balls() -> void:
+	for body in $AttackArea.get_overlapping_bodies():
+		var ball := body as Ball
+		if ball:
+			ball.linear_velocity = Vector2.ZERO
+			ball.apply_central_impulse(Vector2(randf_range(-0.5,0.5), -1.0) * 300)
