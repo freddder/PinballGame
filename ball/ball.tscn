@@ -7,6 +7,8 @@
 radius = 13.0
 
 [node name="Ball" type="RigidBody2D"]
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_4exee")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,3 +17,5 @@ texture = ExtResource("2_febe3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6ucqg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
